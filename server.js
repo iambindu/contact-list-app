@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost/contact-list-app",function(){
 router.get("/",function(request,response){
 	response.json("this is mean stack app")
 })
-router.get("/getContacts",function(request,response){
+/*router.get("/getContacts",function(request,response){
 Contact.getContact(function(err,contactObj){
 	if(err){
 		throw err;
@@ -62,7 +62,7 @@ if(err){
 response.json(contactObj)
 })
 })
-
+*/
 app.use("/",router)
 var PORT=process.env.PORT||1337;
 app.listen(PORT,function(){

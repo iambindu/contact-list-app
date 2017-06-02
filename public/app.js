@@ -1,6 +1,78 @@
 var app=angular.module("myContactApp",[]);
+app.controller('myContactController',['$scope','$http','contactFactory',function($scope,$http,contactFactory){
+getContact();
+function getContact(){
+	contactFactory.getContact()
+	.then(function(response){
+		console.log(response.data)
+		$scope.contactList=response.data
+	})
+}
 
-app.controller("myContactController",["$scope","$http",function($scope,$http){
+$scope.createContact=function(){
+	contactFactory.createContact($scope.contact)
+.then(function(response){
+	console.log("from post"+response.data)
+	getContacts();
+	$scope.contact={};
+})
+}
+$scope.updateContact=function(){
+	contactFactory.updateContact($scope.contact._id,$scope.contact)
+	.then(function(response){
+		console.log(response.data)
+	})
+}
+$scope.editContact=function(id){
+	contactFactory.editContact(id)
+	.then(function(response){
+		console.log(response.data)
+		$scope.contact=response.data
+		getcontacts();
+	})
+	$scope.deleteContact=function(id){
+		contactFactory.deleteContact(id)
+		.then(function(response){
+			console.log(response.data)
+			$scope.contact=response.data
+			getContacts()
+		})
+	}
+}
+}])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*app.controller("myContactController",["$scope","$http",function($scope,$http){
 refresh()
 $scope.createContact=function(){
 	$http.post("/createContact",$scope.contact)
@@ -35,4 +107,4 @@ $http.delete("/deletecontact/"+id)
 	refresh()
 })
 }
-}])
+}])*/
